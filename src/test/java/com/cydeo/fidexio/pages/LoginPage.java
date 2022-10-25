@@ -22,4 +22,10 @@ public class LoginPage {
     @FindBy(xpath = "//button[.='Log in']")
     public WebElement loginButton;
 
+    @FindBy(xpath = "//p[contains(@class,'alert-danger')]")
+    public WebElement wrongMessage;
+
+    @FindBy(xpath = "//input[@required='required']")
+    public WebElement requiredMessage;
+
 }
