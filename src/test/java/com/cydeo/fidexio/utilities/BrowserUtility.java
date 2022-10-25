@@ -1,4 +1,4 @@
-package com.cydeo.fidexio.utulities;
+package com.cydeo.fidexio.utilities;
 
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;

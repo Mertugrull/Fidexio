@@ -1,4 +1,4 @@
-package com.cydeo.fidexio.utulities;
+package com.cydeo.fidexio.utilities;
 
 
 import java.io.FileInputStream;
