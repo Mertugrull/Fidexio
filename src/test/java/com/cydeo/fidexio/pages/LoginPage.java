@@ -28,4 +28,7 @@ public class LoginPage {
     @FindBy(xpath = "//input[@required='required']")
     public WebElement requiredMessage;
 
+    @FindBy(xpath = "//input[@type='password']")
+    public WebElement bulletPassword;
+
 }

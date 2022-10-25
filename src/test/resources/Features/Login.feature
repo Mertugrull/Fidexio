@@ -28,6 +28,7 @@ Feature: As a user, I should be able to log in so that I can land on homepage.
       | password | salesmanager           |
     Then users are able to see Wrong login/password
 
+
   @FIDE-1418
   Scenario:  "Please fill out this field" message should be displayed
   if the password or username is empty
@@ -41,6 +42,19 @@ Feature: As a user, I should be able to log in so that I can land on homepage.
     When salesmanager blank username and input valid password
     When salesmanager click log in button
     Then users are able to see required message
+
+  @FIDE-1421
+    Scenario: User should see the password in bullet signs by default
+      When user input password
+      Then user is able to see the password in bullet sign
+
+
+    @FIDE-1422
+    Scenario:‘Enter’ key of the keyboard is working correctly on the login page.
+      When user press ENTER keyword after input valid credentials
+        | username | posmanager6@info.com |
+        | password | posmanager           |
+      Then users is able to verify keyword is working correctly
 
 
 

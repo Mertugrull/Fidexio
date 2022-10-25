@@ -14,7 +14,7 @@ import org.junit.runner.RunWith;
         features = "src/test/resources/Features",
         glue = "com/cydeo/fidexio/step_definitions",
         dryRun = false,
-        tags = "@FIDE-1415"
+        tags = " @FIDE-1416"
 
 )
 

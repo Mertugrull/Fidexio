@@ -10,8 +10,11 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.Map;
 
 public class LoginStepDefs {
 
@@ -73,18 +76,19 @@ public class LoginStepDefs {
     }
 
     @When("posmanager enters invalid credentials")
-    public void posmanager_enters_invalid_credentials(DataTable dataTable) {
+    public void posmanager_enters_invalid_credentials(Map<String, String> credentials) {
 
-        loginPage.username.sendKeys("username");
-        loginPage.password.sendKeys("password");
+        loginPage.username.sendKeys(credentials.get("username"));
+        loginPage.password.sendKeys(credentials.get("password"));
         loginPage.loginButton.click();
 
     }
     @When("salesmanager enters invalid credentials")
-    public void salesmanager_enters_invalid_credentials(DataTable dataTable) {
+    public void salesmanager_enters_invalid_credentials(Map<String, String> credentials) {
 
-        loginPage.username.sendKeys("username");
-        loginPage.password.sendKeys("password");
+        loginPage.username.sendKeys(credentials.get("username"));
+        loginPage.password.sendKeys(credentials.get("password"));
+        BrowserUtility.sleep(3);
         loginPage.loginButton.click();
 
 
@@ -92,8 +96,10 @@ public class LoginStepDefs {
     @Then("users are able to see Wrong login\\/password")
     public void users_are_able_to_see_wrong_login_password() {
 
-        System.out.println("loginPage.wrongMessage.getText() = " + loginPage.wrongMessage.getText());
-        loginPage.wrongMessage.isDisplayed();
+
+        System.out.println("loginPage.wrongMessage.isDisplayed() = " + loginPage.wrongMessage.isDisplayed());
+
+        Assert.assertTrue(loginPage.wrongMessage.getText().equals("Wrong login/password"));
 
     }
 
@@ -119,5 +125,34 @@ public class LoginStepDefs {
 
     }
 
+
+    @When("user input password")
+    public void userInputPassword() {
+        loginPage.password.sendKeys(ConfigurationReader.getProperty("posmanager.password"));
+    }
+
+    @Then("user is able to see the password in bullet sign")
+    public void userIsAbleToSeeThePasswordInBulletSign() {
+
+        Assert.assertTrue("User is not able to see....", loginPage.bulletPassword.getAttribute("type").equals("password"));
+
+    }
+
+    @When("user press ENTER keyword after input valid credentials")
+    public void user_press_enter_keyword_after_input_valid_credentials(Map<String, String> credentials) {
+
+        loginPage.username.sendKeys(credentials.get("username"));
+        loginPage.password.sendKeys(credentials.get("password")+Keys.ENTER);
+
+    }
+    @Then("users is able to verify keyword is working correctly")
+    public void users_is_able_to_verify_keyword_is_working_correctly() {
+
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 10);
+        wait.until(ExpectedConditions.urlContains("menu"));
+        String expectedUrl = "menu";
+        Assert.assertTrue(Driver.getDriver().getCurrentUrl().contains(expectedUrl));
+
+    }
 
 }
